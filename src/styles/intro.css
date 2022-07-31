@@ -1,0 +1,18 @@
+.intro_box{
+    /* -webkit-text-stroke: 1px rgb(112, 104, 104); */
+    width: 50%;
+    font-size: 25px;
+    /* background: rgb(109, 196, 184); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: left;
+}
+
+.text_box{
+    margin-left: 20px;
+}
+.intro_heading{
+    /* text-align: center; */
+}

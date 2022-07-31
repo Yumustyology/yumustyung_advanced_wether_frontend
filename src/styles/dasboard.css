@@ -1,0 +1,319 @@
+body {
+    margin: 0;
+    /* background-color: #111; */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app_name {
+    border-bottom: 1px solid #fff;
+    width: 50%;
+    padding-bottom: 10px;
+    /* margin-bottom: -.5em; */
+}
+
+h1,
+h3 {
+    font-weight: 400;
+}
+
+.wether_app {
+    min-height: 100vh;
+    background-image: url(../assets/img/cloudy.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+    transition: 500ms;
+    opacity: 1;
+}
+
+.wether_app::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0em 3em 0em 2em;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.container>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.city_time .temp .wether {
+    margin: 0 1em;
+}
+
+.city_time h1 {
+    margin: 0;
+    font-size: 3em;
+    margin-right: 1em;
+}
+
+.wether_output {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -2em;
+    margin-top: -2em;
+}
+
+.temp {
+    font-size: 6em;
+    margin: 0;
+}
+
+.wether img {
+    display: block;
+    margin: 0.5em 0;
+}
+
+.panel {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: rgba(110, 110, 110, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 1;
+    padding: 3em 2em;
+    overflow-y: scroll;
+    content: '';
+}
+
+.panel form {
+    margin-bottom: 3em;
+}
+
+.submit {
+    /* position: absolute; */
+    top: 0;
+    right: 0;
+    /* padding: .2em; */
+    margin: 0;
+    border: none;
+    outline: none;
+    /* background: #fa6d1b; */
+    background: dodgerblue;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding-top: 5px;
+    transition: 0.4s;
+    align-items: center;
+    /* justify-content: center; */
+    /* display: flex; */
+}
+
+.submit:hover {
+    background: #fff !important;
+    color: #000;
+}
+
+.search {
+    background: none;
+    border: none;
+    border-bottom: 1px #ccc solid;
+    /* padding: 0 1em 0.5em 0; */
+    padding: .4em;
+    width: 90%;
+    color: #fff;
+    font-size: 1.1em;
+}
+
+.search:focus {
+    outline: none;
+}
+
+.search::placeholder {
+    color: #ccc;
+}
+
+.locationInput {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* flex-wrap: wrap; */
+}
+
+.basic-single {
+    width: 50%;
+}
+
+.basic-single div {
+    color: #000;
+}
+
+.panel::-webkit-scrollbar {
+    width: 12px;
+    height: 20px;
+    /* width of the entire scrollbar */
+}
+
+.panel::-webkit-scrollbar-thumb {
+    /* background-color: dodgerblue; */
+    /* border-radius: 20px; */
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+}
+
+.panel::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 10px;
+}
+
+.panel::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 10px;
+}
+
+
+.panel ul {
+    padding: 0 0 1em 0;
+    margin: 2em 0;
+    border-bottom: 1px #ccc solid;
+}
+
+.panel ul li {
+    color: #ccc;
+    margin: 2.5em 0;
+}
+
+.panel ul h4 {
+    margin: 3em 0;
+}
+
+.city {
+    display: block;
+    cursor: pointer;
+}
+
+.city:hover {
+    color: #fff;
+}
+
+.details li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.small {
+    font-size: 1.5em !important;
+}
+
+.smally {
+    font-size: .7em;
+}
+
+.country_code {
+    font-size: .4em;
+}
+
+.greet {
+    margin: 0 .5em;
+}
+
+.flex_box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex_inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+.loader_box{
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    /* background:cornflowerblue; */
+    width: 100%;
+    background-image: url(../assets/img/cloudy01.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.loader_inner{
+    background: rgba(17, 16, 16, 0.42);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.8px);
+    -webkit-backdrop-filter: blur(5.8px);
+    height: 100vh;
+    width: 100%;
+}
+.loader{
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+}
+
+/* media queries */
+@media screen and (max-width: 800px) {
+
+    .panel,
+    .container {
+        position: relative;
+        width: 100%;
+        top: initial
+    }
+
+    .container {
+        padding: 2em 3em 4em .5em;
+    }
+
+    .app_name {
+        width: 68vh;
+        
+    }
+
+    .wether_output,
+    .greet {
+        margin: 1em 1em;
+    }
+}
+
+@media screen and (max-width:500px) {
+    html {
+        font-size: 12px
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .wether_app {
+        min-height: 40em;
+    }
+}
