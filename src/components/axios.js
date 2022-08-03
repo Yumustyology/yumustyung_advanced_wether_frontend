@@ -17,9 +17,6 @@ export const axiosPrivateInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-    // const token = JSON.parse(window.localStorage.getItem("weatherAppToken"));
-
    
 
 axiosPrivateInstance.interceptors.request.use(

@@ -395,6 +395,9 @@ body::-webkit-scrollbar {
 
 
 @media screen and (max-width:800px) {
+    .app_name{
+        width: 100%;
+    }
     .temp1{
         font-size: 6em;
     }
