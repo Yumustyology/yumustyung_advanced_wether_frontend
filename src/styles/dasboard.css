@@ -1,6 +1,7 @@
 body {
     margin: 0;
     /* background-color: #111; */
+    box-sizing: border-box;
 }
 
 * {
@@ -11,7 +12,56 @@ body {
     border-bottom: 1px solid #fff;
     width: 50%;
     padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
     /* margin-bottom: -.5em; */
+}
+.logout_btn{
+    background-color: cornflowerblue;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    width: 10%;
+    color: #fff;
+    cursor: pointer;
+    font-size: .5em;
+    padding-top: 5px;
+    transition: 0.4s;
+    align-items: center;
+}
+
+.logout_btn:hover {
+    background: #fff !important;
+    color: #000;
+}
+
+.color_scale_btn{
+    background-color: cornflowerblue;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    width: 10em;
+    color: #fff;
+    cursor: pointer;
+    font-size: .6em;
+    transition: 0.4s;
+    align-items: center;
+    min-height: 4em;
+    margin-left: .5em;
+}
+ .active{
+    background: #fff !important;
+    color: #000; 
+}
+.color_scale_btn:hover {
+    background: #fff !important;
+    color: #000;
+}
+
+.flex_row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center
 }
 
 h1,
@@ -304,11 +354,91 @@ body::-webkit-scrollbar {
     .greet {
         margin: 1em 1em;
     }
+
+    .wether_output1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: -2em;
+        margin-top: -2em;
+    }
 }
 
-@media screen and (max-width:500px) {
-    html {
-        font-size: 12px
+
+.name1{
+    font-size: 32pt
+}
+
+@media screen and (max-width: 1200px) {
+
+.temp1{
+    font-size: 2.5em;
+}
+.name1{
+    font-size: 2em;
+}
+    .wether_output,
+    .greet {
+        margin: 0em 0em;
+    } 
+
+    .greet{
+        margin-top: .08em;
+    }
+    .logout_btn{
+        width: 20%;
+       height: 3em;
+    }
+}
+
+
+
+@media screen and (max-width:800px) {
+    .temp1{
+        font-size: 6em;
+    }
+    .name1{
+        font-size:32pt;
+    }
+    .wether_output1 {
+        display: flex;
+        flex-direction: row;   
+    }
+
+}
+
+@media screen and (max-width:600px) {
+    .wether_output1 {
+        display: flex;
+        flex-direction: column;  
+    }
+    .app_name{
+        width: 100%;
+    }
+    .temp1{
+        font-size:6em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .wether_app {
+        min-height: 40em;
+    }
+
+    .container {
+        padding: 2em 3em 4em .2em;
+    }
+
+    .wether_output2 {
+        display: flex;
+        flex-direction: column;  
+    }
+    .flex_row1{
+        display: flex;
+        flex-direction: column; 
+        margin-top: -0.5em;
+        margin-bottom: 2em;
     }
 }
 
@@ -316,4 +446,5 @@ body::-webkit-scrollbar {
     .wether_app {
         min-height: 40em;
     }
+    
 }

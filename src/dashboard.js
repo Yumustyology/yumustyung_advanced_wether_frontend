@@ -5,8 +5,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import Select from "react-select";
 import data from "./data";
-import { Temperature, Electricity } from "react-environment-chart";
+import { Temperature, Humidity } from "react-environment-chart";
 import Loader from "react-js-loader";
+import { useNavigate } from "react-router-dom";
+import { axiosPrivateInstance } from "./components/axios";
+import { removeToken } from "./components/TokenService";
 
 function Dashboard() {
   const [center, setCenter] = useState([0, -0]);
@@ -24,12 +27,24 @@ function Dashboard() {
   const [userClearIcon, setUserClearIcon] = useState(null);
   const [userForecast, setUserForecast] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [colorScale, setColorScale] = useState("temp");
+  let navigate = useNavigate();
+
+  let weatherAppUserInfo = JSON.parse(
+    window.localStorage.getItem("weatherAppUserInfo")
+  );
+
+  // let accessToken = JSON.parse(window.localStorage.getItem("weatherAppToken"));
+
+  axiosPrivateInstance.get("/private", () => {
+    alert("private to go");
+  });
 
   const getUserForecast = (country, city) => {
     console.log(country, city);
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=a49864adbaac49db5c8db9431b97702b`
+        `https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=a49864adbaac49db5c8db9431b97702b&units=metric`
       )
       .then((resp) => {
         const data = resp.data;
@@ -136,7 +151,8 @@ function Dashboard() {
         let randCountry =
           resp.data[Math.floor(Math.random() * resp.data.length)];
         console.log("randCountry ", randCountry.name.official);
-        getUserForecast("nigeria", randCountry.name.common);
+        weatherAppUserInfo &&
+          getUserForecast(weatherAppUserInfo?.country, randCountry.name.common);
         setCity(randCountry.name.common);
       })
       .catch((err) => console.log(err));
@@ -149,7 +165,7 @@ function Dashboard() {
     } else {
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a49864adbaac49db5c8db9431b97702b`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a49864adbaac49db5c8db9431b97702b&units=metric`
         )
         .then((resp) => {
           const data = resp.data;
@@ -352,6 +368,11 @@ function Dashboard() {
     }
   };
 
+  const logOut = () => {
+    removeToken();
+    navigate("/", { replace: true });
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -359,11 +380,7 @@ function Dashboard() {
           <div className="loader_box">
             <div className="loader_inner">
               <div className="loader">
-                <Loader
-                  type="spinner-circle"
-                  bgColor={"#6495ed"}
-                  size={400}
-                />
+                <Loader type="spinner-circle" bgColor={"#6495ed"} size={400} />
               </div>
             </div>
           </div>
@@ -375,20 +392,28 @@ function Dashboard() {
             style={{ backgroundImage: `url(./assets/img/${background}.jpg)` }}
           >
             <div className="container">
-              <h1 className="app_name">Weather Forecast Application</h1>
+              <h1 className="app_name">
+                Weather Forecast Application{" "}
+                <button className="logout_btn" onClick={() => logOut()}>
+                  logout
+                </button>
+              </h1>
               <div className="greet">
-                Welcome: <b>&nbsp;Yusuf Mustahan</b>
+                Welcome:{" "}
+                <b style={{ textTransform: "capitalize" }}>
+                  &nbsp;{weatherAppUserInfo && weatherAppUserInfo.fullname}
+                </b>
               </div>
               <div className="greet">My Location:</div>
-              <div className="wether_output">
-                <h1 className="temp" style={{}}>
+              <div className="wether_output wether_output1">
+                <h1 className="temp temp1" style={{}}>
                   {userForecast && userForecast.city}
                 </h1>
                 &nbsp; &nbsp;
                 <div className="city_time">
                   <div className="flex_box" style={{ marginTop: "0em" }}>
                     <div className="flex_inner">
-                      <b className="name" style={{ fontSize: "32pt" }}>
+                      <b className="name name1">
                         {userForecast && userForecast.temp}&#176;
                       </b>
                       <small style={{ marginLaft: "-1em" }}>temp</small>
@@ -402,7 +427,7 @@ function Dashboard() {
                         alignItems: "center",
                       }}
                     >
-                      <b className="name" style={{ fontSize: "32pt" }}>
+                      <b className="name name1">
                         {userForecast && userForecast.humidity}%
                       </b>
                       <small style={{ marginLaft: "-1em" }}>humidity</small>
@@ -437,16 +462,6 @@ function Dashboard() {
                   </small>
                 </div>
                 &nbsp; &nbsp;
-                {/* <div className="wether">
-              <img
-                src="./assets/img/113.png"
-                className="icon"
-                alt="icon"
-                width={50}
-                height={50}
-              />
-              <span className="condition">Cloudy</span>
-            </div> */}
               </div>
               <br />
               <div className="map_box">
@@ -456,6 +471,7 @@ function Dashboard() {
                   radius={radius}
                   humidity={forcast ? forcast.humidity : "0"}
                   temperature={forcast ? forcast.temp : "0"}
+                  country={forcast ? forcast.city : ""}
                 />
               </div>
             </div>
@@ -500,7 +516,7 @@ function Dashboard() {
               </ul>
 
               <ul
-                className="wether_output"
+                className="wether_output wether_output2"
                 onClick={() => console.log(forcast)}
               >
                 <h1 className="temp">{forcast && forcast.temp}&#176;</h1>
@@ -537,16 +553,47 @@ function Dashboard() {
                   </span>
                 </div>
               </ul>
-              <ul className="details">
-                <h4>Humidity & Temperature Colour Scale</h4>
+              <ul className="details" style={{ marginTop: "-3em" }}>
+                <div className="flex_row flex_row1">
+                  <h4>Humidity & Temperature Colour Scale</h4>
+                  <div className="flex_row">
+                    <button
+                      className={`color_scale_btn ${
+                        colorScale === "temp" ? "active" : ""
+                      }`}
+                      onClick={() => setColorScale("temp")}
+                    >
+                      Temperature
+                    </button>
+                    <button
+                      className={`color_scale_btn ${
+                        colorScale === "humidity" ? "active" : ""
+                      }`}
+                      onClick={() => setColorScale("humidity")}
+                    >
+                      Humidity
+                    </button>
+                  </div>
+                </div>
 
-                {forcast && (
-                  <Temperature
-                    value={300}
-                    height={250}
-                    tips={["Freezing", "Cold", "Cosy", "Hot"]}
-                  />
-                )}
+                <div>
+                  {forcast && colorScale === "temp" ? (
+                    <Temperature
+                      value={forcast && forcast.temp}
+                      height={330}
+                      tips={["Freezing", "Cold", "Cosy", "Hot"]}
+                    />
+                  ) : (
+                    colorScale === "humidity" && (
+                      <Humidity
+                        
+                        value={forcast && forcast.humidity}
+                        height={150}
+                        tips={["Dry", "Mild", "Wet"]}
+                      />
+                    )
+                  )}
+                </div>
               </ul>
             </div>
           </div>

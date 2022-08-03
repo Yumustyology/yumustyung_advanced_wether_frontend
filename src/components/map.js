@@ -11,7 +11,7 @@ import "../styles/map.css";
 import data from "../data";
 import "leaflet/dist/leaflet.css";
 
-function MapPage({ center, zoom, radius, temperature, humidity }) {
+function MapPage({ center, zoom, radius, temperature, humidity, country }) {
   const initMarker = (ref) => {
     if (ref) {
       ref.leafletElement.openPopup();
@@ -40,6 +40,7 @@ function MapPage({ center, zoom, radius, temperature, humidity }) {
             ref={initMarker}
           >
             <Popup>
+              <div className="popup_text">{country}</div>
               <div className="popup_text">Temperature:{temperature}%</div>
               <div className="popup_text">Humidity:{humidity}%</div>
             </Popup>
