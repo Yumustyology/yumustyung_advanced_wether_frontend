@@ -10,13 +10,13 @@ function Login() {
   const [active, setActive] = useState("signUp");
   const [country, setCountry] = useState([]);
   const [countries, setCountries] = useState();
-  let [info, setInfo] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-    password2: "",
-    region: "",
-  });
+  // let [info, setInfo] = useState({
+    const [fullname,setFullname] = useState("")
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const [password2,setPassword2] = useState("")
+    const [region,setRegion] = useState("")
+  // });
   
   let navigate = useNavigate();
 
@@ -42,15 +42,15 @@ function Login() {
   // loging users in
 
   const signIn = () => {
-    if (info.email === "") {
+    if (email === "") {
       alert("Please input email");
-    } else if (info.password === "") {
+    } else if (password === "") {
       alert("Please input password");
     } else {
       axiosInstance
         .post("/login", {
-          email: info.email,
-          password: info.password,
+          email: email,
+          password: password,
         })
         .then((resp) => {
           console.log(resp);
@@ -94,7 +94,7 @@ function Login() {
           } else {
             // console.log(resp);
             if(resp.data.code === 111){
-              alert(info.email + " is not registered with us")
+              alert(email + " is not registered with us")
             }else if(resp.data.code === 113){
               alert("password is incorrect")
             }
@@ -112,25 +112,27 @@ function Login() {
   // registering new users
 
   const signUp = () => {
-    if (info.name === "") {
+    if (fullname === "") {
       alert("Please input fullname");
-    } else if (info.email === "") {
+    } else if (email === "") {
       alert("Please input email");
-    } else if (info.password === "") {
+    } else if(region === ""){
+      alert("Please input your country");
+    }else if (password === "") {
       alert("Please input password");
-    } else if (info.password.length < 6) {
+    } else if (password.length < 6) {
       alert("Password should be greater than five characters");
-    } else if (info.password2 === "") {
+    } else if (password2 === "") {
       alert("Please re enter password");
-    } else if (info.password2 != info.password) {
+    } else if (password2 != password) {
       alert("Password should match");
     } else {
       axiosInstance
         .post("/signup", {
-          email: info.email,
-          password: info.password,
-          country: info.region,
-          fullname: info.fullname,
+          email: email,
+          password: password,
+          country: region,
+          fullname: fullname,
         })
         .then((resp) => {
           if (resp.data.accessToken) {
@@ -173,7 +175,7 @@ function Login() {
           } else {
             // console.log(resp);
             if(resp.data.code == 112){
-              alert(info.email+" already exist")
+              alert(email+" already exist")
             }
           }
         })
@@ -183,6 +185,14 @@ function Login() {
         });
     }
   };
+
+  const setNullState = ()=>{
+    setRegion("")
+    setFullname("")
+    setEmail("")
+    setPassword2("")
+    setPassword("")
+  }
   return (
     <div className="login_box">
       <form>
@@ -191,12 +201,7 @@ function Login() {
             <div
               className={`pill ${active == "signUp" ? "active" : ""}`}
               onClick={() => {
-                info = {
-                  fullname: "",
-                  email: "",
-                  password: "",
-                  region: "",
-                };
+                setNullState()
                 setActive("signUp");
               }}
             >
@@ -205,12 +210,7 @@ function Login() {
             <div
               className={`pill ${active == "signIn" ? "active" : ""}`}
               onClick={() => {
-                info = {
-                  fullname: "",
-                  email: "",
-                  password: "",
-                  region: "",
-                };
+                setNullState()
                 setActive("signIn");
               }}
             >
@@ -224,15 +224,17 @@ function Login() {
                   type="text"
                   required
                   className="input"
+                  value={fullname}
                   placeholder="Enter fullname (e.g jhon doe)"
-                  onChange={(val) => (info.fullname = val.target.value)}
+                  onChange={(val) => setFullname(val.target.value)}
                 />
                 <input
-                  type="text"
+                  type="email"
                   required
                   className="input"
+                  value={email}
                   placeholder="Enter email (e.g jhondoe@gmail.com)"
-                  onChange={(val) => (info.email = val.target.value)}
+                  onChange={(val) => setEmail(val.target.value)}
                 />
                 <ReactSelect
                   className="basic-single"
@@ -242,22 +244,24 @@ function Login() {
                   isSearchable={true}
                   name="countries"
                   options={countries}
-                  onChange={(val) => (info.region = val.common_name)}
+                  onChange={(val) => setRegion(val.common_name)}
                 />
 
                 <input
                   type="password"
                   required
                   className="input"
+                  value={password}
                   placeholder="Enter password"
-                  onChange={(val) => (info.password = val.target.value)}
+                  onChange={(val) => setPassword(val.target.value)}
                 />
                 <input
                   type="password"
                   required
                   className="input"
+                  value={password2}
                   placeholder="Re Enter password"
-                  onChange={(val) => (info.password2 = val.target.value)}
+                  onChange={(val) => setPassword2(val.target.value)}
                 />
                 <span></span>
                 <input
@@ -272,18 +276,20 @@ function Login() {
             ) : (
               <div className="sign_up_box">
                 <input
-                  type="text"
+                  type="email"
                   required
                   className="input"
                   placeholder="Enter email"
-                  onChange={(val) => (info.email = val.target.value)}
+                  value={email}
+                  onChange={(val) => setEmail(val.target.value)}
                 />
                 <input
                   type="password"
                   required
                   className="input"
+                  value={password}
                   placeholder="Enter Password"
-                  onChange={(val) => (info.password = val.target.value)}
+                  onChange={(val) => setPassword(val.target.value)}
                 />
 
                 <span></span>
