@@ -12,10 +12,11 @@ import { axiosPrivateInstance } from "./components/axios";
 import { removeToken } from "./components/TokenService";
 
 function Dashboard() {
+  // DECLARATION OF STATES
   const [center, setCenter] = useState([0, -0]);
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState();
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState(null); 
   const [forcast, setForeCast] = useState({});
   const [smFont, setSmFont] = useState(false);
   const [zoom, setZoom] = useState(4);
@@ -34,17 +35,17 @@ function Dashboard() {
     window.localStorage.getItem("weatherAppUserInfo")
   );
 
-  // let accessToken = JSON.parse(window.localStorage.getItem("weatherAppToken"));
-
+// console.log(process.env.REACT_APP_ID);
   axiosPrivateInstance.get("/private", () => {
     alert("private to go");
   });
 
+  // GET USER CURRENT LOCATION (REGION INPUT ON SIGNUP)
   const getUserForecast = (country, city) => {
     console.log(country, city);
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=a49864adbaac49db5c8db9431b97702b&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=${process.env.REACT_APP_ID}&units=metric`
       )
       .then((resp) => {
         const data = resp.data;
@@ -80,29 +81,13 @@ function Dashboard() {
         let minutes = newDate.getMinutes();
         let seconds = newDate.getSeconds();
 
-        // function countWords(str) {
-        //   return str.length;
-        // }
-
-        // if (countWords(data.name) > 3) {
-        //   setSmFont(true);
-        // } else {
-        //   setSmFont(false);
-        // }
+       
 
         if (hour <= 9) hour = "0" + hour;
         if (minutes < 10) minutes = "0" + minutes;
         const postTime = hour + ":" + minutes;
 
-        // console.log(sec);
-        // console.log(year);
-        // console.log(times);
-        // console.log("month ", month);
-        // console.log(postTime);
-        // console.log(days[day]);
-        // console.log(date);
-        // console.log(upper_am_pm(hour));
-
+       
         setUserForecast({
           humidity: data.main.humidity,
           temp: data.main.temp,
@@ -122,7 +107,6 @@ function Dashboard() {
         // set aplication backgroung
         const wether_id = data.weather.map((val, i, arr) => val.id);
         const wetherId = wether_id[0];
-        // const wetherId = 800;
 
         if (wetherId === 800) {
           setUserClearIcon("113");
@@ -136,7 +120,6 @@ function Dashboard() {
     axios
       .get("https://restcountries.com/v3.1/all")
       .then((resp) => {
-        // console.log(resp.data.map((val, index, arr) => val.latlng ))
         setCountries(
           resp.data.map((val, index, arr) => ({
             value: val.name.common,
