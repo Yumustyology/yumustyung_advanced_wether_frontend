@@ -375,7 +375,7 @@ function Dashboard() {
 
   return (
     <div>
-      {!isLoading ? (
+      {isLoading ? (
         <>
           <div className="loader_box">
             <div className="loader_inner">
