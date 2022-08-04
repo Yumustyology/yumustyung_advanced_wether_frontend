@@ -19,7 +19,7 @@
 
 @media screen and (max-width: 1000px) {
     .intro_box{
-        margin-top: 5em;
+        /* margin-top: 5em; */
         width: 80%;
     }
 }
