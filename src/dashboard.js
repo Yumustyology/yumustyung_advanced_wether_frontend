@@ -375,12 +375,12 @@ function Dashboard() {
 
   return (
     <div>
-      {isLoading ? (
+      {!isLoading ? (
         <>
           <div className="loader_box">
             <div className="loader_inner">
               <div className="loader">
-                <Loader type="spinner-circle" bgColor={"#6495ed"} size={400} />
+                <Loader type="spinner-circle" bgColor={"#6495ed"} size={300} />
               </div>
             </div>
           </div>

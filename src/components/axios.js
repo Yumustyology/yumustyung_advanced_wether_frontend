@@ -6,13 +6,13 @@ import { getLocalAccessToken, getLocalRefreshToken, removeToken, updateLocalAcce
 
 // unprotected third party request
 const axiosInstance = axios.create({
-  // baseURL: "http://localhost:5000",
-  baseURL: "https://weather-advanced-app.herokuapp.com/",
+  baseURL: "http://localhost:5000",
+  // baseURL: "https://weather-advanced-app.herokuapp.com/",
 });
 // private request
 export const axiosPrivateInstance = axios.create({
-  // baseURL: "http://localhost:5000",
-  baseURL: "https://weather-advanced-app.herokuapp.com/",
+  baseURL: "http://localhost:5000",
+  // baseURL: "https://weather-advanced-app.herokuapp.com/",
   headers: {
     "Content-Type": "application/json",
   },

@@ -310,7 +310,6 @@ body::-webkit-scrollbar {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    /* background:cornflowerblue; */
     width: 100%;
     background-image: url(../assets/img/cloudy01.jpg);
     background-repeat: no-repeat;
@@ -408,6 +407,11 @@ body::-webkit-scrollbar {
         display: flex;
         flex-direction: row;   
     }
+    .loader{
+        position: absolute;
+        top: 50%; 
+        left: 35%;
+    }   
 
 }
 
@@ -421,6 +425,11 @@ body::-webkit-scrollbar {
     }
     .temp1{
         font-size:6em;
+    }
+    .loader{
+        position: absolute;
+        top: 50%; 
+        left: 35%;
     }
 }
 
